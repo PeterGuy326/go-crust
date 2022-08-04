@@ -1,29 +1,22 @@
 package logic
 
 import (
-	"crust/config"
+	"crust/dao"
 	"crust/model"
 )
 
 // 用户登陆
 func Login(input model.LoginInput) (res interface{}, err error) {
-	var user model.User
-	query := config.DB.Table("users").Select("id").
-		Where("name = ? and password = ?", input.Name, input.Password).
-		First(&user)
-
-	err = query.Error
+	user, err := dao.FindUserById(1)
 	if err != nil {
-		return res, err
+		return nil, err
 	}
-
-	return user.Id, nil
+	return user.ID, nil
 }
 
 // 用户注册
 func Register(input model.RegisterInput) (err error) {
-	user := &model.User{Name: input.Name, Password: input.Password}
-	err = config.DB.Create(user).Error
+	_, err = dao.AddUser(input.Name, input.Password)
 	if err != nil {
 		return err
 	}
