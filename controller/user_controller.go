@@ -5,11 +5,12 @@ import (
 	"crust/model"
 	"crust/utils"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
 	"io/ioutil"
+
+	"github.com/gin-gonic/gin"
 )
 
-func Login(ctx *gin.Context) interface{} {
+func Login(ctx *gin.Context) *utils.Response {
 	body, err := ioutil.ReadAll(ctx.Request.Body)
 	if err != nil {
 		return utils.NewResponse(0, err.Error(), nil)
@@ -28,7 +29,7 @@ func Login(ctx *gin.Context) interface{} {
 	return utils.NewResponse(1, "success", res)
 }
 
-func Register(ctx *gin.Context) interface{} {
+func Register(ctx *gin.Context) *utils.Response {
 	body, err := ioutil.ReadAll(ctx.Request.Body)
 	if err != nil {
 		return utils.NewResponse(0, err.Error(), nil)
