@@ -33,3 +33,21 @@ func FindUserById(id uint) (user User, err error) {
 
 	return user, nil
 }
+
+func FindUsersByName(name string, limit int64, offset int64) (users []User, err error) {
+	query := config.DB.Table(TABLE_NAME).Select("*").Where("name = ?", name).Find(&users).Limit(limit).Offset(offset)
+	err = query.Error
+	if err != nil {
+		return users, err
+	}
+	return users, err
+}
+
+func FindUsersByNameLike(name string, limit int64, offset int64) (users []User, err error) {
+	query := config.DB.Table(TABLE_NAME).Select("*").Where("name like ?", name).Find(&users).Limit(limit).Offset(offset)
+	err = query.Error
+	if err != nil {
+		return users, err
+	}
+	return users, err
+}
