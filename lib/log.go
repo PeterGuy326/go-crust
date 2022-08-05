@@ -37,7 +37,7 @@ func getDateString(year int, month time.Month, day int) string {
 // 当链路上有服务请求以及响应的时候，写入对应的日志文件 ~/logs/{app}/rp-request-{timestamp}.log
 func (log Log) Info() error {
 	dir := config.Get("log.path").(string)
-	infoPath := fmt.Sprintf(dir+"/%s/rp-request-%s.log", log.App, getDateString(log.Timestamp.Date())) // 服务间请求调用日志文件
+	infoPath := fmt.Sprintf(dir+"/%s/info/rp-request-%s.log", log.App, getDateString(log.Timestamp.Date())) // 服务间请求调用日志文件
 	if !isExists(infoPath) {
 		_, err := os.Create(infoPath)
 		if err != nil {
